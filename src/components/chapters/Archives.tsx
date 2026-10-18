@@ -4,13 +4,14 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MapPin } from "lucide-react";
 import { memories, type Memory } from "@/content/memories";
 import { useExperience } from "@/lib/experience";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
+import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import Chapter from "../ui/Chapter";
 import Plate from "../ui/Plate";
 import Reel from "../ui/Reel";
 import Reveal from "../ui/Reveal";
 import Dialog from "../ui/Dialog";
 import Egg from "../ui/Egg";
+import MobileMemoryJourney from "../archives/MobileMemoryJourney";
 
 const MAP_W = 3200;
 const MAP_H = 1000;
@@ -111,16 +112,6 @@ export default function Archives() {
         );
       });
 
-      /* Phones and tablets: no pinning. The route draws as the stops pass. */
-      mm.add("(max-width: 1023px)", () => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 70%",
-          end: "bottom 60%",
-          scrub: true,
-          onUpdate: (self) => place(self.progress),
-        });
-      });
     }, section);
 
     return () => ctx.revert();
@@ -153,7 +144,7 @@ export default function Archives() {
           <p className="body-copy mt-5 max-w-[42ch]">
             {staticMode
               ? "Every stop opens. Some of them are funny."
-              : "Scroll and the road draws itself. Open any stop — some of them are funny, one of them isn't."}
+              : "Some of this is funny. Some of it isn't. All of it got us here."}
           </p>
         </div>
 
@@ -188,8 +179,10 @@ export default function Archives() {
           </div>
         )}
 
-        {/* --- the itinerary (phones, and anyone with reduced motion) ----- */}
-        <ol className={`gutter mt-[8vh] space-y-0 ${staticMode ? "" : "lg:hidden"}`}>
+        <MobileMemoryJourney onOpen={setOpen} reducedMotion={staticMode} />
+
+        {/* A compact itinerary remains available for reduced-motion desktop. */}
+        <ol className={`gutter mt-[8vh] space-y-0 ${staticMode ? "hidden lg:block" : "hidden"}`}>
           {pins.map(({ memory, index }) => (
             <li key={memory.id} className="relative border-t border-current/15 pl-7">
               <span

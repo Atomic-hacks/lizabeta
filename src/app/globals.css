@@ -744,3 +744,43 @@ input[type="range"]::-moz-range-thumb {
   .sticky-note { gap: 1rem; }
   .sticky-note .note-aside { font-size: .72rem; }
 }
+/* Mobile archives: photographs hold the moment while the story catches up. */
+.memory-journey { margin-top: 3rem; position: relative; background: #150e1c; color: #fff4e8; }
+.memory-wayfinder { position: sticky; top: 5.25rem; z-index: 21; display: flex; align-items: center; gap: .9rem; margin-bottom: -3.5rem; min-height: 3.5rem; padding: .5rem 1.25rem; background: #21142ef2; color: #f6e7ff; }
+.memory-position { font-family: var(--font-mono); font-size: .65rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.memory-stops { display: grid; grid-template-columns: repeat(9, 1fr); flex: 1; }
+.memory-stops button { display: grid; place-items: center; min-height: 44px; cursor: pointer; background: transparent; border: 0; padding: 0 3px; }
+.memory-stops button span { width: 100%; height: 2px; background: #ffffff40; transition: background .3s, height .3s; }
+.memory-stops button span[data-passed="true"] { background: #d8b1f6; }
+.memory-stops button[aria-current] span { height: 5px; background: #fff0d9; }
+.memory-stops button:focus-visible, .memory-open:focus-visible { outline: 2px solid #fff0d9; outline-offset: 3px; }
+.memory-scenes { margin: 0; padding: 0; list-style: none; }
+.memory-scene { position: relative; min-height: 125svh; }
+.memory-stage { position: sticky; top: 0; min-height: 100svh; display: flex; align-items: flex-end; isolation: isolate; overflow: hidden; }
+.memory-photo { position: absolute; inset: 0; z-index: -3; }
+.memory-stage::after { content: ""; position: absolute; inset: 0; z-index: -2; background: linear-gradient(180deg, #150e1c66 0%, #150e1c00 28%, #150e1c80 48%, #150e1cf2 73%, #150e1c 100%); }
+.memory-year { position: absolute; top: 19%; left: 1rem; font-family: var(--font-display); font-size: clamp(5rem, 24vw, 11rem); line-height: 1; letter-spacing: -.06em; color: #fff5e5; opacity: .6; z-index: -1; }
+.memory-story { width: 100%; padding: 14rem 1.5rem max(3rem, env(safe-area-inset-bottom)); }
+.memory-date { font-family: var(--font-mono); font-size: .75rem; color: #dec2f5; margin-bottom: .9rem; }
+.memory-story h3 { font-size: clamp(2.8rem, 12vw, 5.5rem); line-height: 1.02; max-width: 12ch; text-wrap: balance; }
+.memory-description { font-size: clamp(1rem, 4.5vw, 1.25rem); line-height: 1.65; max-width: 36ch; margin-top: 1.25rem; color: #f5e6df; }
+.memory-open { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 52px; width: 100%; margin-top: 1.5rem; padding: .8rem 0; border: 0; border-bottom: 1px solid #ead2ff55; color: #efd9ff; background: transparent; cursor: pointer; font-size: .9rem; }
+.memory-open > span { display: flex; align-items: center; gap: .65rem; }
+.memory-location { display: flex; align-items: center; gap: .6rem; font-size: .7rem; margin-top: 1rem; color: #d3bbdc; }
+.memory-scene[data-quiet="true"] { min-height: 140svh; }
+.memory-scene[data-quiet="true"] .memory-photo { filter: grayscale(1) brightness(.45); }
+.memory-scene[data-quiet="true"] .memory-story h3 { font-family: var(--font-serif); font-weight: 400; font-style: italic; }
+.memory-scene[data-interlude] .memory-photo { inset: 12% 10% 24%; transform: rotate(-5deg); border: 9px solid #fff0d9; }
+.memory-scene[data-interlude] .memory-stage { background: #342143; }
+.memory-scene[data-interlude] .memory-photo { z-index: -1; }
+.memory-scene[data-interlude] .memory-stage::after { z-index: 0; pointer-events: none; }
+.memory-scene[data-interlude] .memory-story { z-index: 1; }
+.memory-arrival { padding: 3rem 1.5rem 5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.memory-arrival .handwritten { font-size: 1.5rem; max-width: 16ch; }
+.memory-journey[data-reduced-motion="true"] .memory-scene { min-height: auto; }
+.memory-journey[data-reduced-motion="true"] .memory-stage { position: relative; min-height: 85svh; }
+@media (prefers-reduced-motion: reduce) {
+  .memory-scene { min-height: auto; }
+  .memory-stage { position: relative; min-height: 85svh; }
+  .memory-stops button span { transition: none; }
+}
